@@ -38,6 +38,8 @@ class PixivApi {
     if (options && options.headers) {
       this.headers = Object.assign({}, this.headers, options.headers);
     }
+    // expect {host: string, port: number}
+    this.proxy = options?.proxy;
   }
 
   getDefaultHeaders() {
@@ -70,6 +72,7 @@ class PixivApi {
         'Content-Type': 'application/x-www-form-urlencoded',
       }),
       data,
+      proxy: this.proxy
     };
     return axios('https://oauth.secure.pixiv.net/auth/token', options)
       .then(res => {
@@ -107,6 +110,7 @@ class PixivApi {
         'Content-Type': 'application/x-www-form-urlencoded',
       }),
       data,
+      proxy: this.proxy
     };
     return axios('https://oauth.secure.pixiv.net/auth/token', options)
       .then(res => {
@@ -152,6 +156,7 @@ class PixivApi {
         'Content-Type': 'application/x-www-form-urlencoded',
       }),
       data,
+      proxy: this.proxy
     };
     return axios('https://oauth.secure.pixiv.net/auth/token', options)
       .then(res => {
@@ -184,6 +189,7 @@ class PixivApi {
         Authorization: 'Bearer WHDWCGnwWA2C8PRfQSdXJxjXp0G6ULRaRkkd6t5B6h8',
       },
       data,
+      proxy: this.proxy
     };
     return axios(
       'https://accounts.pixiv.net/api/provisional-accounts/create',
@@ -1104,6 +1110,7 @@ class PixivApi {
       this.getDefaultHeaders(),
       options.headers || {}
     );
+    options.proxy = this.proxy;
     if (this.auth && this.auth.access_token) {
       options.headers.Authorization = `Bearer ${this.auth.access_token}`;
     }
