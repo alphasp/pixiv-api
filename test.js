@@ -9,9 +9,11 @@ const novelId = 9545577;
 const novelSeriesId = 941585;
 const word = 'ラブライブ';
 const refreshToken = process.env.refresh_token;
+const { host, port } = process.env;
+const proxy = (host && port) ? {host, port} : undefined
 
 test.beforeEach('new PixivApi()', async t => {
-  const pixiv = new PixivApi();
+  const pixiv = new PixivApi({ proxy });
   t.context.pixiv = pixiv;
   const json = await t.context.pixiv.refreshAccessToken(refreshToken);
   t.true(isObject(json));
